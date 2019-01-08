@@ -92,12 +92,12 @@ class RunSim:
         self.kmc.init_events(rates)
 
 
-
-    def run(self, random_seed=42):
+    def run(self, random_seed=42, verbose=False):
         """
         Run KMC simulation
+        Verbose: False (Default). Set to True for event prints
         """
-
+        self.kmc.verbose = verbose
         # initial values
         t = t_print = t_save = t_measure = 0.0
         it = 0

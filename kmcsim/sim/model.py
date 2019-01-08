@@ -21,6 +21,7 @@ class KMCModel:
     def __init__(self, latt_type):
         self.latt_type = latt_type
         self.__setup_neighbors()
+        self.verbose=False
 
     def __setup_neighbors(self):
         """Create lists of neighboring (nn & nnn) sites"""
@@ -312,8 +313,8 @@ class KMCModel:
                     n_events[ev[0]] += 1
 
         elif event_type == 1: # diffusion
-            r0 = event['initial']
-            ri = event['final']
+            r0 = tuple(event['initial'])
+            ri = tuple(event['final'])
 
             # identify atom (to access associated events)
             iatom = self.latt[r0]
@@ -322,8 +323,8 @@ class KMCModel:
             neighbors_old, _ = self.find_neighbors(r0)
 
             # create move atom to the new position
-            self.latt[tuple(r0)] = 0
-            self.latt[tuple(ri)] = iatom
+            self.latt[r0] = 0
+            self.latt[ri] = iatom
             self.xyz[iatom-1] = ri
 
             # remove all current events of atom iatom
@@ -379,7 +380,8 @@ class KMCModel:
                     n_events[ev[0]] += 1
 
         # update events lists with old_events and new_events
-        print('# end events:', event_type, len(old_events), len(new_events))
+        if self.verbose:
+            print('# end events:', event_type, len(old_events), len(new_events))
 
         # identify indices to be deleted
         delete_events = [[] for _ in range(len(self.event_list))]
