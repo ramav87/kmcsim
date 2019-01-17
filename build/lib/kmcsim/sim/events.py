@@ -58,12 +58,6 @@ class EventTree:
         for i, t in enumerate(self.event_tree):
             print('tree level', i, t.shape)
 
-    def update_global_rate(self, new_rates):
-        '''Function that updates the global rates, e.g. if we want to change sim parameters'''
-
-        self.rates = new_rates
-        #Update the tree with the new global rates
-        #Remember to update events if you update rates
 
     def update_events(self, n_events):
         """
@@ -81,7 +75,7 @@ class EventTree:
         # fill the base level (leaves)
         self.event_tree[0][:self.rates.shape[0]] = self.rates*self.n_events
 
-        # create partial sums up to the top level
+        # create partial summs up to the top level
         for k in range(1, self.kmax):
             self.event_tree[k][:] = [self.event_tree[k-1][i] + self.event_tree[k-1][i+1] for i in range(0, self.event_tree[k-1].shape[0], 2)]
 

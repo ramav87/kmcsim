@@ -56,7 +56,7 @@ class KMCModel:
 
     def make_lattice(self, xyz, box):
         """
-        Set up site labels on FCC lattice
+        Set up site lables on FCC lattice
         """
     
         # create simulation box (fill with -1 denoting sites on on the FCC lattice

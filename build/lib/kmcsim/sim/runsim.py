@@ -23,7 +23,7 @@ class RunSim:
     # simulation flow control parameters with defaults
     t_max = 100.0
     print_period = 1.0
-    save_traj_period = 10.0
+    save_traj_period = 10.
     measure_period = t_max
     param_file = 'params.in'
     incfg_file = 'init.xyz'
@@ -49,20 +49,15 @@ class RunSim:
         with open(setup_file, 'r') as f:
 
             # time limit (ms)
-            self.t_max = float(re.findall('\S+', f.readline())[-1]) #maximum time. Ignoring.
-
-            self.max_time_steps = float(re.findall('\S+', f.readline())[-1]) #maximum time steps
+            self.t_max = float(re.findall('\S+', f.readline())[-1])
 
             # print runtime info period
             self.print_period = float(re.findall('\S+', f.readline())[-1])
 
-            # print runtime info period
-            self.update_rate_period = float(re.findall('\S+', f.readline())[-1]) #time steps to update rate
-
             # save trajectory period
             self.save_traj_period = float(re.findall('\S+', f.readline())[-1])
 
-            # kmc parameter file - rates (1/ms)
+            # kmx parameter file - rates (1/ms)
             self.param_file = os.path.join(path, re.findall('\S+', f.readline())[-1])
 
             # input configuration file
@@ -112,38 +107,21 @@ class RunSim:
             print('time, iteration, number of atoms')
             print(t, it, self.kmc.nat)
 
-        #while t < self.t_max: #e.g. while t<max_iterations (it_max..).
-        while it<self.max_time_steps:
+        while t < self.t_max:
+
             t += self.kmc.advance_time()
 
             self.kmc.step()
-            #May want to add stopping after number of steps here in the simulation....
-            #it is the iteration
+
             it += 1
 
-
-            # perform runtime outputs and any rate changes
+            # perform runtime outputs
             if (t - t_print) > self.print_period:
                 print(t, it, self.kmc.nat)
                 t_print = t
-            if it%self.update_rate_period:
-                print('Updating rates\n')
-
-                new_rates = self.kmc.etree.rates + 0.01
-
-                print('current rates:{} '.format(self.kmc.etree.rates ))
-                print('new rates:{}'.format(new_rates))
-
-                #Update global rates
-                self.kmc.etree.update_global_rate(new_rates)
-                #Update events
-                n_events = np.array([len(e) for e in self.kmc.event_list])
-                self.kmc.etree.update_events(n_events)
 
             if (t - t_save) > self.save_traj_period:
                 t_save = t
-
-                print("save trajectory", t, it, self.kmc.nat)
 
             if (t - t_measure) > self.measure_period:
                 t_measure = t

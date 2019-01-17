@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: kmcsim
+Version: 0.0.1
+Summary: KMC simulation tool
+Home-page: http://github.com/vlcekl/kmcsim
+Author: Lukas Vlcek
+License: MIT
+Description: # KMC simulation tool
+        
+        Simulation of pulsed layer deposition (PLD)
+        
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
