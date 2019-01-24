@@ -149,6 +149,9 @@ class KMCModel:
                     # if number of real atoms 3 or more, make vacancy available as
                     # a destination for deposition and diffusion
                     if len(grain_numbers_k)-1 > 2:
+                        # do not diffuse upward
+                        if rk[2] > rj[2]:
+                            continue
                         events_found.append((1, j, rj, rk))
 
         return events_found
@@ -251,10 +254,13 @@ class KMCModel:
         new_events = []
         n_events = self.etree.n_events
 
-        #print('# event types:', event_type, len(self.event_list))
-        #for i in range(len(self.event_list)):
-        #    #print('# start events: #', i, len(self.event_list[i]), n_events[i])
-        #    assert len(self.event_list[i]) == n_events[i], f'Number of events of type {i} does not match: {len(self.event_list[i])} vs. {n_events[i]}' 
+        print('# event types:', event_type, [len(el) for el in self.event_list])
+        print('atom numbers:', len(self.xyz), len(set(self.grain)))
+        print('last atom coords:', self.xyz[-1])
+
+        for i in range(len(self.event_list)):
+            #print('# start events: #', i, len(self.event_list[i]), n_events[i])
+            assert len(self.event_list[i]) == n_events[i], f'Number of events of type {i} does not match: {len(self.event_list[i])} vs. {n_events[i]}' 
 
         # deposition event
         if event_type == 0:
@@ -324,6 +330,7 @@ class KMCModel:
             # create move atom to the new position
             self.latt[tuple(r0)] = 0
             self.latt[tuple(ri)] = iatom
+            print('diff', r0, ri, iatom, self.xyz[iatom-1])
             self.xyz[iatom-1] = ri
 
             # remove all current events of atom iatom
@@ -397,8 +404,8 @@ class KMCModel:
             self.event_list[ev[0]].append(n_event)
             self.site_dict[ev[1]].append((ev[0], len(self.event_list[ev[0]])-1 ))
 
-        #for i in range(len(self.event_list)):
-        #    assert len(self.event_list[i]) == n_events[i], f'Number of events of type {i} does not match: {len(self.event_list[i])} vs. {n_events[i]}' 
+        for i in range(len(self.event_list)):
+            assert len(self.event_list[i]) == n_events[i], f'Number of events of type {i} does not match: {len(self.event_list[i])} vs. {n_events[i]}' 
 
         # update atom count
         self.nat = len(self.xyz)
@@ -432,6 +439,7 @@ class KMCModel:
 
         # return a random event (based on their frequency)
         event_type, event_number = self.etree.find_event()
+        print('ee', event_type, event_number)
 
         # perform a step prescribed by the event and return lists of affected events
         n_events = self.move(event_type, event_number)

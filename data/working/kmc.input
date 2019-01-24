@@ -1,5 +1,9 @@
+<<<<<<< Rama-branch
 time: 1.0
 time_steps: 50
+=======
+time: 100.0
+>>>>>>> fixed diffusion direction
 print_period: 10.0
 update_rate_period: 10
 save_traj_period: 10.0
