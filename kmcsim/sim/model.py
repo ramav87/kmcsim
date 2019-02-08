@@ -22,6 +22,7 @@ class KMCModel:
     def __init__(self, latt_type):
         self.latt_type = latt_type
         self.__setup_neighbors()
+        self.verbose=False
 
     def __setup_neighbors(self):
         """Create lists of neighboring (nn & nnn) sites"""

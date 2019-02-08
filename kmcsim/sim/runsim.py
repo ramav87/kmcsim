@@ -110,8 +110,9 @@ class RunSim:
     def run(self):
         """
         Run KMC simulation
+        Verbose: False (Default). Set to True for event prints
         """
-
+        self.kmc.verbose = verbose
         # initial values
         t = t_print = t_save = t_measure = 0.0
         it = 0
