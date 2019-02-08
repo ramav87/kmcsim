@@ -39,7 +39,7 @@ class EventTree:
 
         nrates = len(self.rates)
 
-        # create arrays of exponentially decreasing lengh divisible by 2
+        # create arrays of exponentially decreasing length divisible by 2
         while nrates > 1:
 
             if nrates % 2 == 1:
@@ -56,7 +56,8 @@ class EventTree:
 
         # check tree structure
         for i, t in enumerate(self.event_tree):
-            print('tree level', i, t.shape)
+            pass
+            #print('tree level', i, t.shape)
 
 
     def update_events(self, n_events):
@@ -83,7 +84,13 @@ class EventTree:
 
         #for i, t in enumerate(self.event_tree):
         #    print('tree level', i, t)
+       
+    def update_global_rate(self, new_rates):
+        """Function that updates the global rates, e.g. if we want to change sim parameters"""
 
+        self.rates = new_rates
+        #Update the tree with the new global rates
+        #Remember to update events if you update rates
 
     def find_event(self):
         """Find and return an event"""

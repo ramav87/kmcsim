@@ -40,12 +40,12 @@ def write_cfg(file_name, xyz, box, grain):
     with open(file_name, 'w') as f:
         # number of atoms and box
         nat = len(xyz)
-        f.write(f'{nat}\n')
-        f.write(f'fcc {box[0]} {box[1]} {box[2]}\n')
+        f.write('{}\n'.format(nat))
+        f.write('fcc {} {} {}\n'.format(box[0], box[1], box[2]))
 
         # write particle coordinates and grain identity
         for r, g in zip(xyz, grain):
-            f.write(f'{g} {r[0]} {r[1]} {r[2]}\n')
+            f.write('{} {} {} {}\n'.format(g,r[0], r[1], r[2]) )
 
 def read_pars(file_name):
     """Read rates for different event types"""

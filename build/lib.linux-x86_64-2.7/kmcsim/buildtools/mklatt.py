@@ -11,11 +11,11 @@ import sys
 import re
 
 def make_sc(box):
-    print('sc', *box)
+    print('sc')#, *box)
     return
 
 def make_bcc(box):
-    print('bcc', *box)
+    print('bcc')#, *box)
     return
 
 def make_fcc(box):
@@ -42,10 +42,10 @@ def make_fcc(box):
 def write_latt(latt, fname):
 
     with open(fname, 'w') as fo:
-        fo.write('{0:d}\n'.format(latt['nat']))
-        fo.write('{0} {1:d} {2:d} {3:d}\n'.format(*latt['box']))
+        fo.write('{}\n'.format(latt['nat']))
+        fo.write('{} {} {} {}\n'.format(*latt['box']))
         for row in latt['xyzs']:
-            fo.write('{0} {1:d} {2:d} {3:d}\n'.format(*row))
+            fo.write('{} {} {} {}\n'.format(*row))
 
 
 if __name__ == "__main__":

@@ -50,14 +50,14 @@ class KMCModel:
             nbrlist.append(np.array([ 0, 0, 2]))
             nbrlist.append(np.array([ 0, 0,-2]))
         else:
-            raise ValueError(f'Chosen {self.latt_type} lattice. Currently only FCC lattice is supported.')
+            raise ValueError('Chosen {} lattice. Currently only FCC lattice is supported.'.format(self.latt_type))
 
         self.nbrlist = nbrlist
 
 
     def make_lattice(self, xyz, box):
         """
-        Set up site labels on FCC lattice
+        Set up site lables on FCC lattice
         """
     
         # create simulation box (fill with -1 denoting sites on on the FCC lattice
@@ -70,7 +70,7 @@ class KMCModel:
     
         # fill lattice sites with atom ids
         for i, r in enumerate(xyz, start=1):
-            assert sum(r) % 2 == 0, f'{r} Atom not on FCC lattice!'
+            assert sum(r) % 2 == 0, '{} Atom not on FCC lattice!'.format(r)
             latt[tuple(r)] = i
     
         self.latt = latt
@@ -84,7 +84,7 @@ class KMCModel:
 
     def find_neighbors(self, ri):
         """
-        FInd neighbors and return ids usable in site_dict
+        Find neighbors and return ids usable in site_dict
         """
 
         # search nearest neighbors
@@ -239,7 +239,7 @@ class KMCModel:
         # double check if there are some free spaces (just in case - should
         # follow from zero remaining events)
         if len(self.xyz) == self.box[0]*self.box[1]*self.box[2]/2:
-            raise ValueError(f'Lattice is full of atoms, no more events possible.')
+            raise ValueError('Lattice is full of atoms, no more events possible.')
 
         # find a tuple containing information about the selected event
         event = tuple(self.event_list[event_type])[event_number]
@@ -247,11 +247,11 @@ class KMCModel:
         new_events = []
         n_events = self.etree.n_events
 
-        print('# event:', event, 'ev#', [len(el) for el in self.event_list], end='')
-        print('at#',len(self.xyz), 'gr#', len(set(self.grain)), 'lxyz', self.xyz[-1])
+        #print('# event:', event, 'ev#', [len(el) for el in self.event_list], end='')
+        #print('at#',len(self.xyz), 'gr#', len(set(self.grain)), 'lxyz', self.xyz[-1])
 
         for i in range(len(self.event_list)):
-            assert len(self.event_list[i]) == n_events[i], f'Start: Number of events of type {i} does not match: {len(self.event_list[i])} vs. {n_events[i]}' 
+            assert len(self.event_list[i]) == n_events[i], 'Start: Number of events of type {} does not match: {} vs. {}'.format(i,len(self.event_list[i]),n_events[i])
 
         # deposition event
         if event_type == 0:
