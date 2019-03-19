@@ -117,9 +117,10 @@ class EventTree:
         
         event_type = j
 
+        if event_type==3: event_type=2 #temp fix for now.
 
         # select a random event index of a given type
-        print('Event type: {}, N_Events: {}'.format(event_type, self.n_events))
+        #print('Event type: {}, N_Events: {}'.format(event_type, self.n_events))
         event_number = np.random.randint(low= 0, high = self.n_events[event_type])
         #print('event tree:', event_type, event_number)
 

@@ -4,8 +4,14 @@
     <list default="true" id="5377cf60-e098-4a93-b781-8c88370bff37" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/kmcsim-0.0.1-py3.6.egg" afterPath="$PROJECT_DIR$/dist/kmcsim-0.0.1-py3.6.egg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/kmcsim/sim/events.py" afterPath="$PROJECT_DIR$/build/lib/kmcsim/sim/events.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/kmcsim/sim/model.py" afterPath="$PROJECT_DIR$/build/lib/kmcsim/sim/model.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/working/params" afterPath="$PROJECT_DIR$/data/working/params" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmcsim/sim/events.py" afterPath="$PROJECT_DIR$/kmcsim/sim/events.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmcsim/sim/model.py" afterPath="$PROJECT_DIR$/kmcsim/sim/model.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notebooks/n" afterPath="$PROJECT_DIR$/notebooks/n" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notebooks/new_params" afterPath="$PROJECT_DIR$/notebooks/new_params" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation-v4.ipynb" afterPath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation-v4.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation.ipynb" afterPath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,21 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="events.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="events.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kmcsim/sim/events.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+            <state relative-caret-position="1710">
+              <caret line="115" column="27" lean-forward="true" selection-start-line="115" selection-start-column="27" selection-end-line="115" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kmcsim/sim/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="932">
-              <caret line="462" column="58" lean-forward="true" selection-start-line="462" selection-start-column="35" selection-end-line="462" selection-end-column="58" />
+            <state relative-caret-position="339">
+              <caret line="229" column="64" lean-forward="true" selection-start-line="229" selection-start-column="64" selection-end-line="229" selection-end-column="64" />
               <folding>
                 <element signature="e#142#152#0" expanded="true" />
               </folding>
@@ -57,6 +63,8 @@
       <find>n_events = np.array([len(e) for e in self.event_list])</find>
       <find>present</find>
       <find>event_type</find>
+      <find>event type</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -492,21 +500,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kmcsim/sim/model.py">
+    <entry file="file://$PROJECT_DIR$/kmcsim/sim/events.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="932">
-          <caret line="462" column="58" lean-forward="true" selection-start-line="462" selection-start-column="35" selection-end-line="462" selection-end-column="58" />
-          <folding>
-            <element signature="e#142#152#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1710">
+          <caret line="115" column="27" lean-forward="true" selection-start-line="115" selection-start-column="27" selection-end-line="115" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kmcsim/sim/events.py">
+    <entry file="file://$PROJECT_DIR$/kmcsim/sim/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="339">
+          <caret line="229" column="64" lean-forward="true" selection-start-line="229" selection-start-column="64" selection-end-line="229" selection-end-column="64" />
+          <folding>
+            <element signature="e#142#152#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

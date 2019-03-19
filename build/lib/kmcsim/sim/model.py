@@ -152,13 +152,12 @@ class KMCModel:
 
                     # if number of real atoms 3 or more, make vacancy available as
                     # a destination for deposition and diffusion
-                    if len(grain_numbers_k) - 1 == 2:
+                    if len(grain_numbers_k) > 2 and len(grain_numbers_k) < 4:
                         # do not diffuse upward
                         if rk[2] > rj[2]:
                             continue
                         events_found.append((1, ix, iy, iz, rk[0], rk[1], rk[2]))
-
-                    if len(grain_numbers_k) - 1 >2:
+                    elif len(grain_numbers_k) > 4:
                         # do not diffuse upward
                         if rk[2] > rj[2]:
                             continue
@@ -217,26 +216,23 @@ class KMCModel:
                     neighbors, grain_numbers = self.find_neighbors(rj)
 
                     # if 3 or more nearest neighbors with grain IDs present, create a diffusion event
-                    if len(grain_numbers) ==2:
+                    if len(grain_numbers) >2 and len(grain_numbers) <4 :
                         event_tuple = (1, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
                         event_list[1].add(event_tuple)
                         # add event information to the site
                         site_dict[tuple(ri)].append(event_tuple)
-
-                    # if 3 or more nearest neighbors with grain IDs present, create a diffusion event
-                    if len(grain_numbers) > 2:
+                    elif len(grain_numbers) >4:
                         event_tuple = (2, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
                         event_list[2].add(event_tuple)
                         # add event information to the site
                         site_dict[tuple(ri)].append(event_tuple)
-
 
         self.event_list = event_list
         self.site_dict = site_dict
 
         # Get dictionary of event type counts
         n_events = np.array([len(e) for e in self.event_list])
-        print('Number of events:', n_events)
+        #print('Number of events:', n_events)
 
         # Initiate event data structures
         self.etree = EventTree(rates)
@@ -259,8 +255,8 @@ class KMCModel:
         new_events = []
         n_events = self.etree.n_events
 
-        print('# event:', event, 'ev#', [len(el) for el in self.event_list], end='')
-        print('at#', len(self.xyz), 'gr#', len(set(self.grain)), 'lxyz', self.xyz[-1])
+        #print('# event:', event, 'ev#', [len(el) for el in self.event_list], end='')
+        #print('at#', len(self.xyz), 'gr#', len(set(self.grain)), 'lxyz', self.xyz[-1])
 
         for i in range(len(self.event_list)):
             assert len(self.event_list[i]) == n_events[
