@@ -370,8 +370,12 @@ class KMCModel:
             self.event_list[ev[0]].remove(ev)
 
         for ev in new_events:
+            print(ev)
             if ev in self.event_list[ev[0]]:
                 print('present', ev)
+                self.event_list[ev[0]].add(ev)
+                self.site_dict[ev[1:4]].append(ev)
+            #else:
             self.event_list[ev[0]].add(ev)
             self.site_dict[ev[1:4]].append(ev)
 
