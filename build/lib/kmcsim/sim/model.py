@@ -389,7 +389,7 @@ class KMCModel:
 
         print('Num new events: {}, num Old events: {}'.format(len(new_events), len(old_events)))
         print('Num of events: {}'.format(sum(n_events)))
-
+        
         assert sm == df, "Number of new-old events does not match: {0} {1}".format(sm, df)
 
         # update atom count
