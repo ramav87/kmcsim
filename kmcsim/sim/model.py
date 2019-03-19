@@ -151,22 +151,17 @@ class KMCModel:
                 # find if vacancy is a good destination spot
                 if self.latt[rk] == 0:
                     _, grain_numbers_k = self.find_neighbors(rk)
-
+                    # do not diffuse upward
+                    if rk[2] > rj[2]:
+                        continue
                     # if number of real atoms 3 or more, make vacancy available as
                     # a destination for deposition and diffusion
                     if len(grain_numbers_k)-1 > 2:
 
-                        if len(np.unique(grain_numbers_k)) <=2:
-                            # do not diffuse upward
-                            if rk[2] > rj[2]:
-                                continue
+                        if len(np.unique(grain_numbers_k)) <=2: #same grain
                             events_found.append((1, ix, iy, iz, rk[0], rk[1], rk[2]))
-                        else:
-                            # do not diffuse upward
-                            if rk[2] > rj[2]:
-                                continue
+                        else: #different grain
                             events_found.append((2, ix, iy, iz, rk[0], rk[1], rk[2]))
-
 
         return events_found
 
@@ -222,15 +217,15 @@ class KMCModel:
 
                     # if 3 or more nearest neighbors with grain IDs present, create a diffusion event
                     if len(grain_numbers) > 2:
-                        # Add cross-grain diffusion. This is true if the grains themselves are different.
-                        if len(np.unique(grain_numbers)) > 2:
-                            event_tuple = (2, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
-                            event_list[2].add(event_tuple)
-                            # add event information to the site
-                            site_dict[tuple(ri)].append(event_tuple)
-                        else:
+
+                        if len(np.unique(grain_numbers)) <= 2:
                             event_tuple = (1, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
                             event_list[1].add(event_tuple)
+                            # add event information to the site
+                            site_dict[tuple(ri)].append(event_tuple)
+                        else:# Add cross-grain diffusion. This is true if the grains themselves are different.
+                            event_tuple = (2, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
+                            event_list[2].add(event_tuple)
                             # add event information to the site
                             site_dict[tuple(ri)].append(event_tuple)
 

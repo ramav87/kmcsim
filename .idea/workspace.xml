@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5377cf60-e098-4a93-b781-8c88370bff37" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/kmcsim-0.0.1-py3.6.egg" afterPath="$PROJECT_DIR$/dist/kmcsim-0.0.1-py3.6.egg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/working/params" afterPath="$PROJECT_DIR$/data/working/params" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmcsim.egg-info/PKG-INFO" afterPath="$PROJECT_DIR$/kmcsim.egg-info/PKG-INFO" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmcsim/sim/events.py" afterPath="$PROJECT_DIR$/kmcsim/sim/events.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/kmcsim/sim/model.py" afterPath="$PROJECT_DIR$/build/lib/kmcsim/sim/model.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmcsim/sim/model.py" afterPath="$PROJECT_DIR$/kmcsim/sim/model.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmcsim/sim/runsim.py" afterPath="$PROJECT_DIR$/kmcsim/sim/runsim.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation.ipynb" afterPath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,8 +40,8 @@
       <file leaf-file-name="model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kmcsim/sim/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="357" column="38" lean-forward="false" selection-start-line="357" selection-start-column="38" selection-end-line="357" selection-end-column="38" />
+            <state relative-caret-position="544">
+              <caret line="232" column="0" lean-forward="true" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -194,9 +192,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="63" y="90" width="1394" height="831" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26405326" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26405326" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32880434" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -370,8 +367,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kmcsim/sim/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="357" column="38" lean-forward="false" selection-start-line="357" selection-start-column="38" selection-end-line="357" selection-end-column="38" />
+        <state relative-caret-position="544">
+          <caret line="232" column="0" lean-forward="true" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
           <folding />
         </state>
       </provider>
