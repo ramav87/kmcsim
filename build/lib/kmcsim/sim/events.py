@@ -104,20 +104,21 @@ class EventTree:
         # cycle through levels (top->down)
         # start with top-level child (k-2) end with level above bottom (1)
         j = 0
+        num_split_counter =0
         for k in range(self.kmax-2, -1, -1):
-
+            num_split_counter+=1
             # left child value
             left = self.event_tree[k][j]
 
             if q < left:
-                j = 2*j
+                j += 0 #2*j
             else:
                 q -= left
-                j = 2*j + 1
+                j += len(self.event_tree[0])//2**(num_split_counter) #2*j+1
         
         event_type = j
 
-        if event_type==3: event_type=2 #temp fix for now.
+        #if event_type==3: event_type=2 #temp fix for now.
 
         # select a random event index of a given type
         #print('Event type: {}, N_Events: {}'.format(event_type, self.n_events))

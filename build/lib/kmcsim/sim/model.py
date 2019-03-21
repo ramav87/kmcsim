@@ -215,12 +215,14 @@ class KMCModel:
                     # explore neighborhood of the target vacancy
                     neighbors, grain_numbers = self.find_neighbors(rj)
 
-                    # if 3 or more nearest neighbors with grain IDs present, create a diffusion event
+                    # if 3 nearest neighbors with grain IDs present, create a diffusion event
                     if len(grain_numbers) >2 and len(grain_numbers) <4 :
                         event_tuple = (1, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
                         event_list[1].add(event_tuple)
                         # add event information to the site
                         site_dict[tuple(ri)].append(event_tuple)
+
+                    # if more than 3 nearest neighbors with grain IDs present, create a different diffusion
                     elif len(grain_numbers) >4:
                         event_tuple = (2, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
                         event_list[2].add(event_tuple)
