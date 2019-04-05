@@ -65,7 +65,7 @@ class EventTree:
         Update tree with new values, if needed
         """
 
-        assert len(n_events) == len(self.rates), 'Rates and n_event lists do not match'
+        assert (len(n_events) == len(self.rates), 'Rates and n_event lists do not match')
 
         # if no changes, return
         #if np.array_equal(self.n_events, n_events):

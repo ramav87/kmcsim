@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5377cf60-e098-4a93-b781-8c88370bff37" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/kmcsim-0.0.1-py3.6.egg" afterPath="$PROJECT_DIR$/dist/kmcsim-0.0.1-py3.6.egg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/kmcsim/sim/events.py" afterPath="$PROJECT_DIR$/build/lib/kmcsim/sim/events.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/kmcsim/sim/model.py" afterPath="$PROJECT_DIR$/build/lib/kmcsim/sim/model.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmcsim/sim/events.py" afterPath="$PROJECT_DIR$/kmcsim/sim/events.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation-v4.ipynb" afterPath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation-v4.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation.ipynb" afterPath="$PROJECT_DIR$/notebooks/setup_and_run_kmc_simulation.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +27,8 @@
       <file leaf-file-name="model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kmcsim/sim/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
+            <state relative-caret-position="15">
+              <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
               <folding>
                 <element signature="e#142#152#0" expanded="true" />
               </folding>
@@ -80,8 +75,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="105" />
-    <option name="y" value="69" />
+    <option name="x" value="79" />
+    <option name="y" value="269" />
     <option name="width" value="1394" />
     <option name="height" value="831" />
   </component>
@@ -189,10 +184,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="105" y="69" width="1394" height="831" extended-state="0" />
-    <editor active="true" />
+    <frame x="79" y="269" width="1394" height="831" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2677515" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2677515" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32880434" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -502,8 +496,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kmcsim/sim/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
+        <state relative-caret-position="15">
+          <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
           <folding>
             <element signature="e#142#152#0" expanded="true" />
           </folding>
