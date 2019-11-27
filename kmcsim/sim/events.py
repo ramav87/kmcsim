@@ -76,9 +76,10 @@ class EventTree:
         # fill the base level (leaves)
         self.event_tree[0][:self.rates.shape[0]] = self.rates*self.n_events
 
-        # create partial summs up to the top level
+        # create partial sums up to the top level
         for k in range(1, self.kmax):
-            self.event_tree[k][:] = [self.event_tree[k-1][i] + self.event_tree[k-1][i+1] for i in range(0, self.event_tree[k-1].shape[0], 2)]
+            next_level = [self.event_tree[k-1][i] + self.event_tree[k-1][i+1] for i in range(0, self.event_tree[k-1].shape[0], 2)]
+            self.event_tree[k][:len(next_level)] = next_level
 
         self.Rs = self.event_tree[-1][0]
 

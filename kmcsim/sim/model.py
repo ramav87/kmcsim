@@ -57,7 +57,7 @@ class KMCModel:
 
     def make_lattice(self, xyz, box):
         """
-        Set up site lables on FCC lattice
+        Set up site labels on FCC lattice
         """
 
         # create simulation box (fill with -1 denoting sites on on the FCC lattice
@@ -81,23 +81,31 @@ class KMCModel:
         # Set grain number of each substrate atom to 0
         self.grain = [0 for _ in range(self.nat)]
 
+        #we are going to add an atom type to all of this
+        #0 is atom A and 1 is atom B.
+        self.atom_type = [0 for _ in range(self.nat)]
+
     def find_neighbors(self, ri):
         """
-        FInd neighbors and return ids usable in site_dict
+        Find neighbors and return ids usable in site_dict
+        In addition to the neighbors, it will also provide the
+        grain numbers of all atoms found, and the identity of such atoms
         """
 
         # search nearest neighbors
         # to determine stable sites (needs at least 3)
         neighbors = []
         grain_numbers = []
+        atom_types = []
         for dr in self.nbrlist[0:12]:
             rj = tuple((np.array(ri) + dr) % self.box)
             iatom = self.latt[rj]
             neighbors.append(rj)
             if iatom > 0:
                 grain_numbers.append(self.grain[iatom - 1])
+                atom_types.append(self.atom_type[iatom-1])
 
-        return neighbors, grain_numbers
+        return neighbors, grain_numbers, atom_types
 
     def get_grain(self, grain_numbers):
 
@@ -121,6 +129,10 @@ class KMCModel:
 
         ix, iy, iz = rj
         iatom = self.latt[ix, iy, iz]
+        #TODO: it seems that the atom_type is not set for all iatoms!!
+        #This must be a mistake during either initilaization OR during the events themselves.
+        atom_type = self.atom_type[iatom-1]
+
         # print('rj', type(rj), rj, iatom)
 
         events_found = []
@@ -130,11 +142,12 @@ class KMCModel:
             # rj = np.array(rj, dtype=int)
 
             # count number of atomic neighbors in the target position
-            _, grain_numbers_j = self.find_neighbors(rj)
+            _, grain_numbers_j,_ = self.find_neighbors(rj)
 
             # if 3 or more nearest neighbors with grain IDs, create a deposition event
             if len(grain_numbers_j) > 2:
                 events_found.append((0, ix, iy, iz, ix, iy, iz))
+                events_found.append((1, ix, iy, iz, ix, iy, iz))
 
         # atom, find diffusion events
         elif iatom > 0:
@@ -142,27 +155,27 @@ class KMCModel:
             # search for possible diffusion events
 
             # explore neighborhood of atom j
-            neighbors_j, grain_numbers_j = self.find_neighbors(rj)
+            neighbors_j, grain_numbers_j, atom_types_j = self.find_neighbors(rj)
 
             for rk in neighbors_j:
 
                 # find if vacancy is a good destination spot
                 if self.latt[rk] == 0:
-                    _, grain_numbers_k = self.find_neighbors(rk)
+                    _, grain_numbers_k, atom_types_k = self.find_neighbors(rk)
 
                     # if number of real atoms 3 or more, make vacancy available as
                     # a destination for deposition and diffusion
-                    if len(grain_numbers_k) > 2 and len(grain_numbers_k) < 4:
-                        # do not diffuse upward
-                        if rk[2] > rj[2]:
-                            continue
-                        events_found.append((1, ix, iy, iz, rk[0], rk[1], rk[2]))
-                    elif len(grain_numbers_k) > 4:
-                        # do not diffuse upward
-                        if rk[2] > rj[2]:
-                            continue
-                        events_found.append((2, ix, iy, iz, rk[0], rk[1], rk[2]))
 
+                    if len(grain_numbers_k) > 2 :
+                        # do not diffuse upward
+                        if rk[2] > rj[2]:
+                            continue
+                        if atom_types_k.count(atom_type)>=0.75*len(atom_types_k):
+                            events_found.append((2, ix, iy, iz, rk[0], rk[1], rk[2])) #diffusion mostly same NN
+                        elif atom_types_k.count(atom_type) <= 0.25 * len(atom_types_k):
+                            events_found.append((3, ix, iy, iz, rk[0], rk[1], rk[2]))  # diffusion mostly different NN
+                        else:
+                            events_found.append((4, ix, iy, iz, rk[0], rk[1], rk[2]))  # diffusion to mixed neighbors
 
         return events_found
 
@@ -186,13 +199,21 @@ class KMCModel:
                     t_ri = (ix, iy, iz)
 
                     # count number of neighbors in the target position
-                    neighbors, grain_numbers = self.find_neighbors(t_ri)
+                    neighbors, grain_numbers,atom_types = self.find_neighbors(t_ri)
 
                     # if 3 or more nearest neighbors with grain IDs, create a deposition event
                     if len(grain_numbers) > 2:
+
+                        #deposition atom A
                         event_tuple = (0, ix, iy, iz, ix, iy, iz)
                         event_list[0].add(event_tuple)
 
+                        # add event information to the site
+                        site_dict[t_ri].append(event_tuple)
+
+                        #deposition atom B
+                        event_tuple = (1, ix, iy, iz, ix, iy, iz)
+                        event_list[1].add(event_tuple)
                         # add event information to the site
                         site_dict[t_ri].append(event_tuple)
                     break
@@ -200,6 +221,9 @@ class KMCModel:
         # diffusion events for actual atoms (i.e., atom id > 0)
         for i, ri in enumerate(self.xyz, start=1):
             if ri[2] < 2: continue
+
+            iatom = i#self.latt[ri]
+            atom_type = self.atom_type[iatom-1]
 
             # cycle over neighbor sites
             for dr in self.nbrlist:
@@ -211,23 +235,25 @@ class KMCModel:
 
                 # is vacancy in the neighborhood of atom i?
                 if self.latt[rj] == 0:
-
+                    atom_type = self.atom_type[rj]
                     # explore neighborhood of the target vacancy
-                    neighbors, grain_numbers = self.find_neighbors(rj)
+                    neighbors, grain_numbers, atom_types = self.find_neighbors(rj)
 
                     # if 3 nearest neighbors with grain IDs present, create a diffusion event
-                    if len(grain_numbers) >2 and len(grain_numbers) <4 :
-                        event_tuple = (1, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
-                        event_list[1].add(event_tuple)
+                    if len(grain_numbers) >2 :
+                        if atom_types.count(atom_type) >= 0.75 * len(atom_types):
+                            event_tuple = (2, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])  # diffusion mostly same NN
+                            event_list[2].add(event_tuple)
+                        elif atom_types.count(atom_type) <= 0.25 * len(atom_types):
+                            event_tuple = (3, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])   # diffusion mostly different NN
+                            event_list[3].add(event_tuple)
+                        else:
+                            event_tuple = (4, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])  # diffusion to mixed neighbors
+                            event_list[4].add(event_tuple)
+
                         # add event information to the site
                         site_dict[tuple(ri)].append(event_tuple)
 
-                    # if more than 3 nearest neighbors with grain IDs present, create a different diffusion
-                    elif len(grain_numbers) >4:
-                        event_tuple = (2, ri[0], ri[1], ri[2], rj[0], rj[1], rj[2])
-                        event_list[2].add(event_tuple)
-                        # add event information to the site
-                        site_dict[tuple(ri)].append(event_tuple)
 
         self.event_list = event_list
         self.site_dict = site_dict
@@ -264,8 +290,8 @@ class KMCModel:
             assert len(self.event_list[i]) == n_events[
                 i], 'Start: Number of events of type {} does not match: {} vs. {}'.format(i,len(self.event_list[i]),n_events[i])
 
-            # deposition event
-        if event_type == 0:
+        # deposition event
+        if event_type == 0 or event_type==1:
             t_ri = event[4:7]
             ri = np.array(t_ri)
 
@@ -277,7 +303,7 @@ class KMCModel:
             self.latt[t_ri] = iatom  # id for the site properties with atom id and list of events
 
             # search neighbors and grain numbers
-            neighbors, grain_numbers = self.find_neighbors(t_ri)
+            neighbors, grain_numbers,_ = self.find_neighbors(t_ri)
 
             # assign a new grain number to the atom
             self.grain.append(self.get_grain(grain_numbers))
@@ -307,7 +333,7 @@ class KMCModel:
                 new_events.extend(events_found)
 
 
-        elif event_type == 1:  # diffusion
+        elif event_type == 2 or event_type==3 or event_type==4 :  # diffusion
             t_r0 = event[1:4]  # initial position
             t_ri = event[4:7]  # final position
             r0 = np.array(t_r0)
@@ -325,11 +351,12 @@ class KMCModel:
             del self.site_dict[t_ri]
 
             # search neighbors of the initial state
-            neighbors_old, _ = self.find_neighbors(t_r0)
+            neighbors_old, _,_ = self.find_neighbors(t_r0)
 
             # move atom to the new position
             self.latt[t_r0] = 0
             self.latt[t_ri] = iatom
+
             self.xyz[iatom - 1] = ri
 
             # find events of the moved atom
@@ -339,7 +366,10 @@ class KMCModel:
             new_events.extend(events_found)
 
             # search neighbors and grain numbers for final state
-            neighbors_new, grain_numbers = self.find_neighbors(t_ri)
+            neighbors_new, grain_numbers,_ = self.find_neighbors(t_ri)
+
+            #assign the atom type
+            self.atom_type[iatom] = self.atom_type[iatom - 1]
 
             # assign a new grain number to the atom
             self.grain[iatom - 1] = self.get_grain(grain_numbers)
@@ -358,56 +388,6 @@ class KMCModel:
                 events_found = self.find_events(t_rj)
                 new_events.extend(events_found)
 
-        elif event_type == 2:  # diffusion
-            t_r0 = event[1:4]  # initial position
-            t_ri = event[4:7]  # final position
-            r0 = np.array(t_r0)
-            ri = np.array(t_ri)
-
-            # identify atom (to access associated events)
-            iatom = self.latt[t_r0]
-
-            # remove all current events of atom iatom
-            old_events.extend(self.site_dict[t_r0])
-            del self.site_dict[t_r0]
-
-            # remove all current events of the destination vacancy
-            old_events.extend(self.site_dict[t_ri])
-            del self.site_dict[t_ri]
-
-            # search neighbors of the initial state
-            neighbors_old, _ = self.find_neighbors(t_r0)
-
-            # move atom to the new position
-            self.latt[t_r0] = 0
-            self.latt[t_ri] = iatom
-            self.xyz[iatom - 1] = ri
-
-            # find events of the moved atom
-            events_found = self.find_events(ri)
-
-            # update site dict and new_events list cycle through new events
-            new_events.extend(events_found)
-
-            # search neighbors and grain numbers for final state
-            neighbors_new, grain_numbers = self.find_neighbors(t_ri)
-
-            # assign a new grain number to the atom
-            self.grain[iatom - 1] = self.get_grain(grain_numbers)
-
-            # remove all old events of the old and new neighbors
-            # and add new events
-            for t_rj in set(neighbors_old + neighbors_new):
-
-                if t_rj == t_ri or t_rj == t_r0:
-                    continue
-
-                old_events.extend(self.site_dict[t_rj])
-                del self.site_dict[t_rj]
-
-                # add new events of neighbor j
-                events_found = self.find_events(t_rj)
-                new_events.extend(events_found)
 
         # update events lists with old_events and new_events
         o_events = 0
