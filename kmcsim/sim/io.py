@@ -34,7 +34,7 @@ def read_cfg(file_name):
 
     return lat_type, box, xyz
 
-def write_cfg(file_name, xyz, box, grain):
+def write_cfg(file_name, xyz, box, grain, atom_type):
     """Write output configuration to xyz file"""
 
     with open(file_name, 'w') as f:
@@ -44,8 +44,8 @@ def write_cfg(file_name, xyz, box, grain):
         f.write('fcc {} {} {}\n'.format(box[0], box[1], box[2]))
 
         # write particle coordinates and grain identity
-        for r, g in zip(xyz, grain):
-            f.write('{} {} {} {}\n'.format(g,r[0], r[1], r[2]) )
+        for r, g,at in zip(xyz, grain, atom_type):
+            f.write('{} {} {} {} {}\n'.format(g,r[0], r[1], r[2], at) )
 
 def read_pars(file_name):
     """Read rates for different event types"""

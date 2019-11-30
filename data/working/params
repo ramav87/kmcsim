@@ -1,5 +1,5 @@
 deposition_a: 0.05
 deposition_b: 0.05
-diffusion_same: 0.15
+diffusion_same: 0.25
 diffusion_different: 0.02
 diffusion_mix: 0.08

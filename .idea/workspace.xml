@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5377cf60-e098-4a93-b781-8c88370bff37" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/kmcsim.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kmcsim.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/working/ni.xyz" beforeDir="false" afterPath="$PROJECT_DIR$/data/working/ni.xyz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/working/output.xyz" beforeDir="false" afterPath="$PROJECT_DIR$/data/working/output.xyz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/working/output.xyz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/working/params" beforeDir="false" afterPath="$PROJECT_DIR$/data/working/params" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kmcsim/sim/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/kmcsim/sim/events.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kmcsim/sim/io.py" beforeDir="false" afterPath="$PROJECT_DIR$/kmcsim/sim/io.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kmcsim/sim/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/kmcsim/sim/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kmcsim/sim/runsim.py" beforeDir="false" afterPath="$PROJECT_DIR$/kmcsim/sim/runsim.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,20 +22,6 @@
         <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>save_traj_period</find>
-      <find>end events</find>
-      <find>EventTree</find>
-      <find>update_events</find>
-      <find>n_events = np.array([len(e) for e in self.event_list])</find>
-      <find>present</find>
-      <find>event_type</find>
-      <find>event type</find>
-      <find>print</find>
-      <find>kmax</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -104,7 +89,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -112,13 +99,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kmcsim/sim/model.py</url>
-          <line>133</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint suspend="NONE" type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

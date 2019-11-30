@@ -70,7 +70,7 @@ class RunSim:
             # input configuration file
             self.incfg_file = os.path.join(path, re.findall('\S+', f.readline())[-1])
 
-            # input configuration file
+            # output configuration file
             self.outcfg_file = os.path.join(path, re.findall('\S+', f.readline())[-1])
 
             # trajectory file
@@ -105,7 +105,8 @@ class RunSim:
         self.global_time_steps =0
         self.global_time = 0
 
-
+        #setup an output file counter
+        self.output_count = 0
 
     def run(self):
         """
@@ -134,6 +135,11 @@ class RunSim:
             if (t - t_print) > self.print_period:
                 print(t, it, self.kmc.nat)
                 t_print = t
+                xyz, box, grain, atom_types = self.kmc.get_conf()
+                self.output_count += 1
+                if self.output_count<10:
+                    output_filename = self.outcfg_file[:-4] + '0' + str(self.output_count) + '.xyz'
+                write_cfg(output_filename, xyz, box, grain, atom_types)
            
             if (t - t_save) > self.save_traj_period:
                 t_save = t
@@ -146,6 +152,7 @@ class RunSim:
         if (self.print_period < self.t_max):
             print('End of simulation')
             print(t, it, self.kmc.nat)
+
 
     def run_to_next_step(self, random_seed = 0.42):
         #run the simulation only to the next step
@@ -171,8 +178,10 @@ class RunSim:
         Save the final state and statistics
         """
 
-        xyz, box, grain = self.kmc.get_conf()
-        write_cfg(self.outcfg_file, xyz, box, grain)
+        xyz, box, grain, atom_types = self.kmc.get_conf()
+        self.output_count+=1
+        output_filename = self.outcfg_file[:-4] + str(self.output_count) + '.xyz'
+        write_cfg(output_filename, xyz, box, grain,atom_types )
 
     def update_rate(self, new_rates, verbose=True):
         if verbose:

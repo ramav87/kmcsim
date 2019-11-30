@@ -129,8 +129,6 @@ class KMCModel:
 
         ix, iy, iz = rj
         iatom = self.latt[ix, iy, iz]
-        #TODO: it seems that the atom_type is not set for all iatoms!!
-        #This must be a mistake during either initilaization OR during the events themselves.
         atom_type = self.atom_type[iatom-1]
 
         # print('rj', type(rj), rj, iatom)
@@ -301,6 +299,12 @@ class KMCModel:
 
             # put it on a lattice
             self.latt[t_ri] = iatom  # id for the site properties with atom id and list of events
+            if event_type==0:
+                self.atom_type.append(0)
+                #self.atom_type[iatom] = 0
+            elif event_type==1:
+                #self.atom_type[iatom] = 1
+                self.atom_type.append(1)
 
             # search neighbors and grain numbers
             neighbors, grain_numbers,_ = self.find_neighbors(t_ri)
@@ -351,7 +355,7 @@ class KMCModel:
             del self.site_dict[t_ri]
 
             # search neighbors of the initial state
-            neighbors_old, _,_ = self.find_neighbors(t_r0)
+            neighbors_old, _, _ = self.find_neighbors(t_r0)
 
             # move atom to the new position
             self.latt[t_r0] = 0
@@ -369,7 +373,12 @@ class KMCModel:
             neighbors_new, grain_numbers,_ = self.find_neighbors(t_ri)
 
             #assign the atom type
-            self.atom_type[iatom] = self.atom_type[iatom - 1]
+            try:
+                self.atom_type[iatom-1] = self.atom_type[self.latt[t_r0]]
+            except IndexError:
+                print("Index error with iatom {}, length of atom_type list is {}, length of latt is {} and length of xyz is {}".format(
+                    iatom, len(self.atom_type), len(self.latt), len(self.xyz))
+                )
 
             # assign a new grain number to the atom
             self.grain[iatom - 1] = self.get_grain(grain_numbers)
@@ -417,7 +426,7 @@ class KMCModel:
         return n_events
 
     def get_conf(self):
-        return self.xyz, self.box, self.grain
+        return self.xyz, self.box, self.grain, self.atom_type
 
     def advance_time(self):
         """
