@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5377cf60-e098-4a93-b781-8c88370bff37" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/working/output.xyz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/working/params" beforeDir="false" afterPath="$PROJECT_DIR$/data/working/params" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kmcsim/sim/io.py" beforeDir="false" afterPath="$PROJECT_DIR$/kmcsim/sim/io.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kmcsim/sim/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/kmcsim/sim/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kmcsim/sim/runsim.py" beforeDir="false" afterPath="$PROJECT_DIR$/kmcsim/sim/runsim.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +22,7 @@
   </component>
   <component name="ProjectId" id="1UDWoLG7GLQ0TpzN7RbbVjEPsEX" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Github/pyUSID" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
