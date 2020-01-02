@@ -10,7 +10,7 @@ from kmcsim.sim import RunSim
 wdir = r'data/working'
 
 # make substrate: perfect FCC lattice of given dimensions
-box = [16, 32, 4]
+box = [16, 16, 4]
 latt = make_fcc(box)
 
 # extend the box in the z-direction to make space for new layers to grow

@@ -2,7 +2,7 @@
 #
 # File name:   kmc_pld.py
 # Date:        2018/08/03 09:07
-# Author:      Lukas Vlcek
+# Author:      Lukas Vlcek, Rama Vasudevan
 #
 # Description: 
 #
@@ -84,7 +84,7 @@ class EventTree:
         self.Rs = self.event_tree[-1][0]
 
         #for i, t in enumerate(self.event_tree):
-        #    print('tree level', i, t)
+            #print('tree level', i, t)
        
     def update_global_rate(self, new_rates):
         """Function that updates the global rates, e.g. if we want to change sim parameters"""
@@ -100,10 +100,11 @@ class EventTree:
         #    print('tree level runtime', i, t)
 
         # generate a random number [0,Rs)
-        q = self.Rs*np.random.random()
+        #q = self.Rs*np.random.random()
 
         # cycle through levels (top->down)
         # start with top-level child (k-2) end with level above bottom (1)
+        '''
         j = 0
         num_split_counter =0
         for k in range(self.kmax-2, -1, -1):
@@ -120,6 +121,13 @@ class EventTree:
         event_type = j
 
         #if event_type==3: event_type=2 #temp fix for now.
+        '''
+
+        #New and easier method to picking events
+
+        event_probabilities = np.array(self.event_tree[0]) / np.sum(self.event_tree[0])
+        #if self.kmax!=len(event_probabilities): print('kmax is {} but event probs are {}'.format(self.kmax, event_probabilities))
+        event_type = np.random.choice(range(len(event_probabilities)), p=event_probabilities)
 
         # select a random event index of a given type
         #print('Event type: {}, N_Events: {}'.format(event_type, self.n_events))
