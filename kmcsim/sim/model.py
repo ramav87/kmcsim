@@ -22,8 +22,10 @@ class KMCModel:
 
     def __init__(self, latt_type):
         self.latt_type = latt_type
-        self.__setup_neighbors()
+        self.__setup_neighbors() 
+        self.temp = 800 #temperature of simulation
 
+        
     def __setup_neighbors(self):
         """Create lists of neighboring (nn & nnn) sites"""
 
